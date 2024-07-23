@@ -1,5 +1,5 @@
 {
-  "name": "flowmailer/flowmailer-php-sdk",
+  "name": "squeezely/flowmailer-php-sdk",
   "description": "Flowmailers PHP SDK for api.flowmailer.net REST API",
   "license": "MIT",
   "type": "library",
