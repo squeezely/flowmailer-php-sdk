@@ -8,11 +8,24 @@ class ArrayCachePool implements CacheInterface {
     protected array $cache = [];
 
     public function has(string $key): bool {
-        return array_key_exists($key, $this->cache);
+        if(array_key_exists($key, $this->cache)) {
+            if($this->cache[$key]['ttl'] === null || $this->cache[$key]['ttl'] <= time()) {
+                return true;
+            }
+            else {
+                unset($this->cache[$key]);
+            }
+        }
+        return false;
     }
 
     public function get(string $key, mixed $default = null): mixed {
         if($this->has($key)) {
+            if($this->cache[$key]['ttl'] !== null && $this->cache[$key]['ttl'] > time()) {
+                unset($this->cache[$key]);
+                return $default;
+            }
+
             return $this->cache[$key];
         }
 
@@ -20,11 +33,10 @@ class ArrayCachePool implements CacheInterface {
     }
 
     public function set(string $key, mixed $value, \DateInterval|int|null $ttl = null): bool {
-        $this->cache[$key] = $value;
-
-        if($ttl !== null) {
-            throw new Exception('ttl is not supported');
-        }
+        $this->cache[$key] = [
+            'value' => $value,
+            'ttl' => $ttl ? time() + $ttl : null,
+        ];
 
         return true;
     }
