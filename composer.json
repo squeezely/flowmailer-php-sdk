@@ -56,9 +56,6 @@
     "symfony/http-client": "^5.4 || ^6.0",
     "symfony/var-dumper": "^5.4 || ^6.0"
   },
-  "provide": {
-    "flowmailer/flowmailer-php-sdk-implementation": "^1.0"
-  },
   "suggest": {
     "enqueue/simple-client": "With enqueue you're able to queue sending of messages (on many different implementations). Please see docs.",
     "guzzlehttp/promises": "To use Flowmailer::submitMessages (for sending multiple messages to Flowmailer in an async manner), require version ^2.0.",
