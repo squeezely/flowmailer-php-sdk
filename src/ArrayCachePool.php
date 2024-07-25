@@ -4,8 +4,16 @@ namespace Flowmailer\API;
 use Exception;
 use Psr\SimpleCache\CacheInterface;
 
+class CacheValues {
+    public static array $cache = [];
+}
+
 class ArrayCachePool implements CacheInterface {
-    protected array $cache = [];
+    protected array $cache;
+
+    public function __construct() {
+        $this->cache = &CacheValues::$cache;
+    }
 
     public function has(string $key): bool {
         if(array_key_exists($key, $this->cache)) {
@@ -20,7 +28,7 @@ class ArrayCachePool implements CacheInterface {
     }
 
     public function get(string $key, mixed $default = null): mixed {
-        if($this->has($key)) {
+        if(isset($this->cache[$key])) {
             if($this->cache[$key]['ttl'] !== null && $this->cache[$key]['ttl'] <= time()) {
                 unset($this->cache[$key]);
                 return $default;
@@ -34,7 +42,7 @@ class ArrayCachePool implements CacheInterface {
 
     public function set(string $key, mixed $value, \DateInterval|int|null $ttl = null): bool {
         if($ttl instanceof \DateInterval) {
-            $ttl = (new \DateTime())->add($ttl)->getTimestamp();
+            $ttl = (new \DateTime('now'))->add($ttl)->getTimestamp();
         }
         elseif($ttl !== null) {
             $ttl = time() + $ttl;
