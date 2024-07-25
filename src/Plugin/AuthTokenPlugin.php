@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Flowmailer\API\Plugin;
 
-use Cache\Adapter\PHPArray\ArrayCachePool;
+use Flowmailer\API\ArrayCachePool;
 use Flowmailer\API\FlowmailerInterface;
 use Flowmailer\API\Model\OAuthTokenResponse;
 use Flowmailer\API\OptionsInterface;
