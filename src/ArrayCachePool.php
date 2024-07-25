@@ -21,7 +21,7 @@ class ArrayCachePool implements CacheInterface {
 
     public function get(string $key, mixed $default = null): mixed {
         if($this->has($key)) {
-            if($this->cache[$key]['ttl'] !== null && $this->cache[$key]['ttl'] > time()) {
+            if($this->cache[$key]['ttl'] !== null && $this->cache[$key]['ttl'] <= time()) {
                 unset($this->cache[$key]);
                 return $default;
             }
@@ -33,9 +33,16 @@ class ArrayCachePool implements CacheInterface {
     }
 
     public function set(string $key, mixed $value, \DateInterval|int|null $ttl = null): bool {
+        if($ttl instanceof \DateInterval) {
+            $ttl = (new \DateTime())->add($ttl)->getTimestamp();
+        }
+        elseif($ttl !== null) {
+            $ttl = time() + $ttl;
+        }
+
         $this->cache[$key] = [
             'value' => $value,
-            'ttl' => $ttl ? time() + $ttl : null,
+            'ttl' => $ttl,
         ];
 
         return true;
