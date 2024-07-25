@@ -26,7 +26,7 @@ class ArrayCachePool implements CacheInterface {
                 return $default;
             }
 
-            return $this->cache[$key];
+            return $this->cache[$key]['value'];
         }
 
         return $default;
