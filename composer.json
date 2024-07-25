@@ -1,5 +1,5 @@
 {
-  "name": "flowmailer/flowmailer-php-sdk",
+  "name": "squeezely/flowmailer-php-sdk",
   "description": "Flowmailers PHP SDK for api.flowmailer.net REST API",
   "license": "MIT",
   "type": "library",
@@ -55,9 +55,6 @@
     "symfony/cache": "^5.4 || ^6.0",
     "symfony/http-client": "^5.4 || ^6.0",
     "symfony/var-dumper": "^5.4 || ^6.0"
-  },
-  "provide": {
-    "flowmailer/flowmailer-php-sdk-implementation": "^1.0"
   },
   "suggest": {
     "enqueue/simple-client": "With enqueue you're able to queue sending of messages (on many different implementations). Please see docs.",

@@ -15,7 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Options implements OptionsInterface
 {
-    private const PACKAGE_NAME = 'flowmailer/flowmailer-php-sdk';
+    private const PACKAGE_NAME = 'squeezely/flowmailer-php-sdk';
 
     private array $options;
 
